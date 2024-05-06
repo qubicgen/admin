@@ -4,6 +4,7 @@ import { Input } from "../components/ui/input"
 import axios from 'axios';
 import { Label } from "../components/ui/label"
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "../components/ui/table"
+import './Admin.css'
 
 function Admin() {
   const [data, setData] = useState({ queries: [], jobApplications: [], contacts: [], getInTouches: [] });
@@ -45,6 +46,14 @@ function Admin() {
     
   });
 
+  const handleLogout = () => {
+    // Clear the token from cookies or wherever it's stored
+    document.cookie = 'TOKEN=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    // Redirect or perform any other action after logout if needed
+    // For example, redirect to login page
+    window.location.href = '/admin/login';
+  };
+
 
   const handleDataTypeChange = (event) => {
     setSelectedDataType(event.target.value);
@@ -55,6 +64,9 @@ function Admin() {
       <div className="hidden border-r bg-gray-100/40 lg:block">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-[60px] items-center border-b px-6">
+
+
+            
             <a className="flex items-center gap-2 font-semibold" href="#">
               <UsersIcon className="h-6 w-6" />
               <span className="">All Forms Data</span>
@@ -95,16 +107,28 @@ function Admin() {
           </a>
           <div className="w-full flex-1">
             <form>
-              <div className="relative">
-                <SearchIcon
-                  className="absolute left-2.5 top-2.5 h-4 w-4 text-yellow-500" />
+              <div className="flex justify-evenly" >
+              
                 <Input
                   className="w-full bg-white shadow-none appearance-none pl-8 md:w-2/3 lg:w-1/3 "
                   placeholder="Search individuals..."
                   type="search"
                   value={searchTerm}
                   onChange={handleSearch}/>
+                    {/* <SearchIcon
+                  className=" relative right-44 top-1 text-yellow-500" /> */}
+<button class="Btn" onClick={handleLogout}>
+  
+  <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+  
+  <div class="text">Logout</div>
+</button>
+
+
+
+
               </div>
+
             </form>
           </div>
         </header>
@@ -232,8 +256,8 @@ function Admin() {
     </div>)
   ): (
     <div>
-      You are not logged in. Go to 
-      <a href="admin/login">Login</a>
+      You are not logged in .   
+      <a href="admin/login" className='text-blue-800' style={{textDecoration:'underline'}}> Go to Login Page</a>
     </div>
   )
   );
