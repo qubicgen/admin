@@ -7,14 +7,13 @@ import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from ".
 import './Admin.css'
 
 function Admin() {
-  const [data, setData] = useState({ queries: [], jobApplications: [], contacts: [], getInTouches: [] });
-  const [selectedDataType, setSelectedDataType] = useState('queries');
+  const [data, setData] = useState({ queries: [], jobApplications: [], contacts: [], getInTouches: [], students: [], projects: [] });  const [selectedDataType, setSelectedDataType] = useState('queries');
   const token = document.cookie.replace(/(?:(?:^|.*;\s*)TOKEN\s*=\s*([^;]*).*$)|^.*$/, "$1");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://api.qubicgen.com/api/fetchData', {
+        const response = await axios.get('http://api.qubicgen.com/api/fetchData', {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`, 
@@ -86,14 +85,16 @@ function Admin() {
                 />
               </div> */}
               <div className="mt-4">
-                <Label htmlFor="filter" className="text-xl font-semibold">Filter by Type</Label>
-                <select id="dataType" value={selectedDataType} onChange={handleDataTypeChange} className="w-full mt-2 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                  <option value="queries">Queries</option>
-                  <option value="jobApplications">Job Applications</option>
-                  <option value="contacts">Contacts</option>
-                  <option value="getInTouches">Get In Touches</option>
-                </select>
-              </div>
+                  <Label htmlFor="filter" className="text-xl font-semibold">Filter by Type</Label>
+                  <select id="dataType" value={selectedDataType} onChange={handleDataTypeChange} className="w-full mt-2 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="queries">Queries</option>
+                    <option value="jobApplications">Job Applications</option>
+                    <option value="contacts">Contacts</option>
+                    <option value="getInTouches">Get In Touches</option>
+                    <option value="students">Students</option>
+                    <option value="projects">Projects</option>
+                  </select>
+                </div>
             </nav>
           </div>
         </div>
@@ -249,6 +250,70 @@ function Admin() {
       </Table>
     </div>
   )}
+  {selectedDataType === 'students' && (
+    <div className="border shadow-sm rounded-lg bg-white">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead>Course</TableHead>
+            <TableHead>Phone</TableHead>
+            <TableHead>Stream</TableHead>
+            <TableHead>Message</TableHead>
+            <TableHead>College</TableHead>
+            <TableHead>Date</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {filteredData.map((item) => (
+            <TableRow key={item._id}>
+              <TableCell>{item.name || 'N/A'}</TableCell>
+              <TableCell>{item.email || 'N/A'}</TableCell>
+              <TableCell>{item.course || 'N/A'}</TableCell>
+              <TableCell>{item.phone || 'N/A'}</TableCell>
+              <TableCell>{item.stream || 'N/A'}</TableCell>
+              <TableCell>{item.message || 'N/A'}</TableCell>
+              <TableCell>{item.college || 'N/A'}</TableCell>
+              <TableCell>{item.date || 'N/A'}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+  )}
+  {selectedDataType === 'projects' && (
+    <div className="border shadow-sm rounded-lg bg-white">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead>Job Title</TableHead>
+            <TableHead>Company</TableHead>
+            <TableHead>Phone</TableHead>
+            <TableHead>Message</TableHead>
+            <TableHead>Date</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {filteredData.map((item) => (
+            <TableRow key={item._id}>
+              <TableCell>{item.name || 'N/A'}</TableCell>
+              <TableCell>{item.email || 'N/A'}</TableCell>
+              <TableCell>{item.jobTitle || 'N/A'}</TableCell>
+              <TableCell>{item.company || 'N/A'}</TableCell>
+              <TableCell>{item.phone|| 'N/A'}</TableCell>
+              <TableCell>{item.message || 'N/A'}</TableCell>
+              <TableCell>{item.date || 'N/A'}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+  )}
+
+
 </main>
 
 
