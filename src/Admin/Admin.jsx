@@ -5,6 +5,8 @@ import axios from 'axios';
 import { Label } from "../components/ui/label"
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "../components/ui/table"
 import './Admin.css'
+import * as XLSX from 'xlsx';
+
 
 function Admin() {
   const [data, setData] = useState({ queries: [], jobApplications: [], contacts: [], getInTouches: [], students: [], projects: [] });  const [selectedDataType, setSelectedDataType] = useState('queries');
@@ -33,6 +35,13 @@ function Admin() {
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
+  const handleExport = () => {
+    const sheet = XLSX.utils.json_to_sheet(filteredData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, sheet, 'Sheet1');
+    XLSX.writeFile(wb, 'data.xlsx');
+  };
+  
 
   const filteredData = data[selectedDataType].filter((item) => {
     // Filter logic based on the search term
@@ -122,6 +131,30 @@ function Admin() {
           </div>
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
+
+        <button onClick={handleExport} 
+  class="cursor-pointer flex justify-between bg-gray-800 px-3 py-2 rounded-full text-white tracking-wider shadow-xl hover:bg-gray-900 hover:scale-105 duration-500 hover:ring-1 font-mono w-[150px] ml-auto text-xs"
+>
+  Export as csv
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="2"
+    stroke="currentColor"
+    class="w-5 h-5 animate-bounce"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"
+    ></path>
+  </svg>
+</button>
+
+
+
+        
   {selectedDataType === 'queries' && (
     <div className="border shadow-sm rounded-lg bg-white">
       <Table>
