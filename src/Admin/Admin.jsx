@@ -13,7 +13,7 @@ function Admin() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://api.qubicgen.com/api/fetchData', {
+        const response = await axios.get('https://api.qubicgen.com/api/fetchData', {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`, 
@@ -59,13 +59,11 @@ function Admin() {
   };
   return (
     token ? ( (
-    <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
-      <div className="hidden border-r bg-gray-100/40 lg:block">
+    <div className="grid min-h-screen w-full grid-cols-[280px_1fr] md:grid-cols-[280px_1fr]  lg:grid-cols-[280px_1fr]">
+      <div className=" border-r bg-gray-100/40 block md:block lg:block">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-[60px] items-center border-b px-6">
 
-
-            
             <a className="flex items-center gap-2 font-semibold" href="#">
               <UsersIcon className="h-6 w-6" />
               <span className="">All Forms Data</span>
@@ -73,17 +71,7 @@ function Admin() {
           </div>
           <div className="flex-1 overflow-auto py-2">
             <nav className="grid items-start px-4 text-sm font-medium">
-              {/* <div className="relative">
-                <SearchIcon
-                  className="absolute left-2.5 top-2.5 h-4 w-4 text-white-500 " />
-                <input
-                  className="w-full bg-white shadow-none appearance-none pl-8 md:w-2/3 lg:w-1/3"
-                  placeholder="Search individuals..."
-                  type="search"
-                  value={searchTerm}
-                  onChange={handleSearch}
-                />
-              </div> */}
+             
               <div className="mt-4">
                   <Label htmlFor="filter" className="text-xl font-semibold">Filter by Type</Label>
                   <select id="dataType" value={selectedDataType} onChange={handleDataTypeChange} className="w-full mt-2 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -118,11 +106,11 @@ function Admin() {
                   onChange={handleSearch}/>
                     {/* <SearchIcon
                   className=" relative right-44 top-1 text-yellow-500" /> */}
-<button class="Btn" onClick={handleLogout}>
+<button className="Btn ml-auto" onClick={handleLogout}>
   
-  <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
+  <div className="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
   
-  <div class="text">Logout</div>
+  <div className="text">Logout</div>
 </button>
 
 
@@ -294,6 +282,7 @@ function Admin() {
             <TableHead>Phone</TableHead>
             <TableHead>Message</TableHead>
             <TableHead>Date</TableHead>
+            
           </TableRow>
         </TableHeader>
         <TableBody>
